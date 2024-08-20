@@ -42,12 +42,12 @@ pip install sphinx sphinx-autobuild
 sphinx-quickstart
 ```
 
-<img  src="./imgs/sphinx_setting.jpg" width="50%" align="left" />
+![1](../../imgs/software_readthedocs_sphinx.jpg)
 
 此时，项目路径如下图所示
 
-<img  src="./imgs/tree.jpg" width="50%" align = "left" />
 
+![2](../../imgs/software_readthedocs_tree.jpg)
 ### 4.编译部署
 
 部署http服务
@@ -156,12 +156,12 @@ git push -u origin main
 
 使用github账号登录[ReadTheDocs官网](https://readthedocs.org/)，并导入项目
 
-<img  src="./imgs/readthedoc_importproject.jpg" width="50%" align = "left" />
 
+![3](../../imgs/software_readthedocs_importproject.jpg)
 
 
 填写项目信息后，依次点击“下一步-----完成”，
 
-<img  src="./imgs/readthedoc_project.png" width="50%" align = "left" />
 
+![4](../../imgs/software_readthedocs_project.png)
 最后，点击”build version“按钮创建版本，完成后点击“阅读文档”即可看到线上文档了。
