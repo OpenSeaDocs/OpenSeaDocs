@@ -22,8 +22,8 @@
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../../genindex.html" />
     <link rel="search" title="搜索" href="../../../search.html" />
-    <link rel="next" title="推理框架" href="../../inference/index.html" />
-    <link rel="prev" title="训练框架" href="../index.html" /> 
+    <link rel="next" title="DeepSpeed" href="../deepspeed/deepspeed.html" />
+    <link rel="prev" title="模型训练" href="../index.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -51,18 +51,19 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../hc/index.html">异构计算</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../../index.html">人工智能</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../../learning/index.html">学习框架</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="../index.html">训练框架</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">模型训练</a><ul class="current">
 <li class="toctree-l3 current"><a class="current reference internal" href="#">LLaMA-factory</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id1">项目背景</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id1">项目简介</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#id2">前置准备</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#id3">环境安装</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#id4">快速开始</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#id5">参考</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../deepspeed/deepspeed.html">DeepSpeed</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../inference/index.html">推理框架</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../inference/index.html">模型推理</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../database/index.html">数据库</a></li>
@@ -84,7 +85,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../../index.html">人工智能</a></li>
-          <li class="breadcrumb-item"><a href="../index.html">训练框架</a></li>
+          <li class="breadcrumb-item"><a href="../index.html">模型训练</a></li>
       <li class="breadcrumb-item active">LLaMA-factory</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../../_sources/ai/training/llama-factory/llama-factory.md.txt" rel="nofollow"> 查看页面源码</a>
@@ -98,9 +99,8 @@
   <section id="llama-factory">
 <h1>LLaMA-factory<a class="headerlink" href="#llama-factory" title="Link to this heading"></a></h1>
 <section id="id1">
-<h2>项目背景<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
-<p>​	开源大模型如LLaMA，Qwen，Baichuan等主要都是使用通用数据进行训练而来，其对于不同下游的使用场景和垂直领域的效果有待进一步提升，衍生出了微调训练相关的需求，包含预训练（pt），指令微调（sft），基于人工反馈的对齐（rlhf）等全链路。但大模型训练对于显存和算力的要求较高，同时也需要下游开发者对大模型本身的技术有一定了解，具有一定的门槛。</p>
-<p>​        LLaMA-Factory项目的目标是整合主流的各种高效训练微调技术，适配市场主流开源模型，形成一个功能丰富，适配性好的训练框架。项目提供了多个高层次抽象的调用接口，包含多阶段训练，推理测试，benchmark评测，API Server等，使开发者开箱即用。同时借鉴 Stable Diffsion WebUI相关，本项目提供了基于gradio的网页版工作台，方便初学者可以迅速上手操作，开发出自己的第一个模型。</p>
+<h2>项目简介<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<p>LLaMA Factory 是一个简单易用且高效的大型语言模型（Large Language Model）训练与微调平台。通过 LLaMA Factory，可以在无需编写任何代码的前提下，在本地完成上百种预训练模型的微调。</p>
 </section>
 <section id="id2">
 <h2>前置准备<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
@@ -117,7 +117,7 @@
 </section>
 <section id="id3">
 <h2>环境安装<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
-<p><a class="reference internal" href="install_dcu.html"><span class="doc">DCU</span></a></p>
+<p><a class="reference internal" href="install_dcu.html"><span class="doc">基于海光DCU搭建项目运行环境</span></a></p>
 </section>
 <section id="id4">
 <h2>快速开始<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
@@ -128,7 +128,7 @@
 <span class="n">cp</span> <span class="n">llama3_lora_sft</span><span class="o">.</span><span class="n">yaml</span> <span class="n">qwen2_lora_sft</span><span class="o">.</span><span class="n">yaml</span>
 </pre></div>
 </div>
-<p>修改配置文件中的model_name_or_path模型路径，</p>
+<p>修改配置文件中的model_name_or_path模型路径，关于配置文件的参数含义可参考<a class="reference external" href="https://llamafactory.readthedocs.io/zh-cn/latest/">官方文档</a></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">vim</span> <span class="n">qwen2_lora_sft</span><span class="o">.</span><span class="n">yaml</span>
 </pre></div>
 </div>
@@ -156,8 +156,8 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
-        <a href="../index.html" class="btn btn-neutral float-left" title="训练框架" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
-        <a href="../../inference/index.html" class="btn btn-neutral float-right" title="推理框架" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../index.html" class="btn btn-neutral float-left" title="模型训练" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../deepspeed/deepspeed.html" class="btn btn-neutral float-right" title="DeepSpeed" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
