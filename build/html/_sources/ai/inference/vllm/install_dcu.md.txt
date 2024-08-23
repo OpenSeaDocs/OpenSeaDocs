@@ -18,7 +18,7 @@
 拉取官方项目代码
 
 ```
-git clone https://github.com/hiyouga/LLaMA-Factory.git
+git clone https://github.com/vllm-project/vllm.git
 ```
 
 - 容器镜像
@@ -30,17 +30,17 @@ docker pull image.sourcefind.cn:5000/dcu/admin/base/pytorch:2.1.0-ubuntu20.04-dt
 ### 创建容器
 
 ```
-# 进入LLaMA-Factory项目根目录
-cd LLaMA-Factory
+# 进入vllm项目根目录
+cd vllm
 # 创建容器
 docker run -dit --network=host \
---name=llama-factory \
+--name=vllm \
 --restart=on-failure:10 \
 --privileged \
 --device=/dev/kfd --device=/dev/dri \
 --ipc=host --shm-size=32G --group-add video \
 --cap-add=SYS_PTRACE --security-opt seccomp=unconfined \
--v $PWD:/LLaMA-Factory \
+-v $PWD:/vllm \
 -v /data/model:/model \
 -v /opt/hyhal:/opt/hyhal \
 -u root --ulimit stack=-1:-1 --ulimit memlock=-1:-1 \
@@ -52,7 +52,7 @@ bash
 
 ```
 # 进入容器项目根目录下
-docker exec -it llama-factory bash
+docker exec -it vllm bash
 cd /LLaMA-Factory
 # 安装第三方库
 pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -r requirements.txt

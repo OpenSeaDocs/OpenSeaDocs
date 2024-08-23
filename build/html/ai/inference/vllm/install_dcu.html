@@ -68,7 +68,7 @@
       <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
       <li class="breadcrumb-item active">安装-海光DCU</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../../../_sources/ai/training/llama-factory/install_dcu.md.txt" rel="nofollow"> 查看页面源码</a>
+            <a href="../../../_sources/ai/inference/vllm/install_dcu.md.txt" rel="nofollow"> 查看页面源码</a>
       </li>
   </ul>
   <hr/>
@@ -96,7 +96,7 @@
 <li><p>项目代码</p></li>
 </ul>
 <p>拉取官方项目代码</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">hiyouga</span><span class="o">/</span><span class="n">LLaMA</span><span class="o">-</span><span class="n">Factory</span><span class="o">.</span><span class="n">git</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">vllm</span><span class="o">-</span><span class="n">project</span><span class="o">/</span><span class="n">vllm</span><span class="o">.</span><span class="n">git</span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -108,17 +108,17 @@
 </section>
 <section id="id3">
 <h3>创建容器<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span># 进入LLaMA-Factory项目根目录
-cd LLaMA-Factory
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span># 进入vllm项目根目录
+cd vllm
 # 创建容器
 docker run -dit --network=host \
---name=llama-factory \
+--name=vllm \
 --restart=on-failure:10 \
 --privileged \
 --device=/dev/kfd --device=/dev/dri \
 --ipc=host --shm-size=32G --group-add video \
 --cap-add=SYS_PTRACE --security-opt seccomp=unconfined \
--v $PWD:/LLaMA-Factory \
+-v $PWD:/vllm \
 -v /data/model:/model \
 -v /opt/hyhal:/opt/hyhal \
 -u root --ulimit stack=-1:-1 --ulimit memlock=-1:-1 \
@@ -130,7 +130,7 @@ bash
 <section id="id4">
 <h3>安装第三方库<a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 进入容器项目根目录下</span>
-<span class="n">docker</span> <span class="n">exec</span> <span class="o">-</span><span class="n">it</span> <span class="n">llama</span><span class="o">-</span><span class="n">factory</span> <span class="n">bash</span>
+<span class="n">docker</span> <span class="n">exec</span> <span class="o">-</span><span class="n">it</span> <span class="n">vllm</span> <span class="n">bash</span>
 <span class="n">cd</span> <span class="o">/</span><span class="n">LLaMA</span><span class="o">-</span><span class="n">Factory</span>
 <span class="c1"># 安装第三方库</span>
 <span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">i</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">pypi</span><span class="o">.</span><span class="n">tuna</span><span class="o">.</span><span class="n">tsinghua</span><span class="o">.</span><span class="n">edu</span><span class="o">.</span><span class="n">cn</span><span class="o">/</span><span class="n">simple</span> <span class="o">-</span><span class="n">r</span> <span class="n">requirements</span><span class="o">.</span><span class="n">txt</span>

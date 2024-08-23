@@ -18,7 +18,7 @@
 拉取官方项目代码
 
 ```
-git clone https://github.com/hiyouga/LLaMA-Factory.git
+git clone https://github.com/InternLM/lmdeploy.git
 ```
 
 - 容器镜像
@@ -30,17 +30,17 @@ docker pull image.sourcefind.cn:5000/dcu/admin/base/pytorch:2.1.0-ubuntu20.04-dt
 ### 创建容器
 
 ```
-# 进入LLaMA-Factory项目根目录
-cd LLaMA-Factory
+# 进入lmdeploy项目根目录
+cd lmdeploy
 # 创建容器
 docker run -dit --network=host \
---name=llama-factory \
+--name=lmdeploy \
 --restart=on-failure:10 \
 --privileged \
 --device=/dev/kfd --device=/dev/dri \
 --ipc=host --shm-size=32G --group-add video \
 --cap-add=SYS_PTRACE --security-opt seccomp=unconfined \
--v $PWD:/LLaMA-Factory \
+-v $PWD:/lmdeploy \
 -v /data/model:/model \
 -v /opt/hyhal:/opt/hyhal \
 -u root --ulimit stack=-1:-1 --ulimit memlock=-1:-1 \
@@ -48,28 +48,19 @@ image.sourcefind.cn:5000/dcu/admin/base/pytorch:2.1.0-ubuntu20.04-dtk24.04.1-py3
 bash
 ```
 
-### 安装第三方库
+### 安装依赖
 
 ```
 # 进入容器项目根目录下
-docker exec -it llama-factory bash
-cd /LLaMA-Factory
-# 安装第三方库
-pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -r requirements.txt
-# 该镜像需卸载自带vllm，否则会有错误
-pip uninstall vllm
+docker exec -it lmdeploy bash
+cd /lmdeploy
+# 需要更换transformers版本至4.41.2，否则qwen2的推理会报错
+pip install -i https://pypi.tuna.tsinghua.edu.cn/simple transformers==4.41.2
 ```
 
-登录[光合开发者社区资源下载中心的DAS](https://developer.hpccube.com/tool)中下载对应版本deepspeed包，然后安装该依赖包，
+验证lmdeploy版本
 
 ```
-pip install -i https://pypi.tuna.tsinghua.edu.cn/simple deepspeed-0.12.3+das1.0+gita724046.abi0.dtk2404.torch2.1.0-cp310-cp310-manylinux2014_x86_64.whl
-```
-
-如需使用llamafactory-cli命令，请执行如下安装
-
-```
-cd /LLaMA-Factory
-pip install -e ".[torch,metrics]"
+python -c "import lmdeploy; print(lmdeploy.__version__)"
 ```
 

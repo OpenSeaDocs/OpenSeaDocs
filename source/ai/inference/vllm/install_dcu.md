@@ -18,7 +18,7 @@
 拉取官方项目代码
 
 ```
-git clone https://github.com/hiyouga/LLaMA-Factory.git
+git clone -b v0.5.0 https://github.com/vllm-project/vllm.git
 ```
 
 - 容器镜像
@@ -30,17 +30,17 @@ docker pull image.sourcefind.cn:5000/dcu/admin/base/pytorch:2.1.0-ubuntu20.04-dt
 ### 创建容器
 
 ```
-# 进入LLaMA-Factory项目根目录
-cd LLaMA-Factory
+# 进入vllm项目根目录
+cd vllm
 # 创建容器
 docker run -dit --network=host \
---name=llama-factory \
+--name=vllm \
 --restart=on-failure:10 \
 --privileged \
 --device=/dev/kfd --device=/dev/dri \
 --ipc=host --shm-size=32G --group-add video \
 --cap-add=SYS_PTRACE --security-opt seccomp=unconfined \
--v $PWD:/LLaMA-Factory \
+-v $PWD:/vllm \
 -v /data/model:/model \
 -v /opt/hyhal:/opt/hyhal \
 -u root --ulimit stack=-1:-1 --ulimit memlock=-1:-1 \
@@ -52,24 +52,19 @@ bash
 
 ```
 # 进入容器项目根目录下
-docker exec -it llama-factory bash
-cd /LLaMA-Factory
-# 安装第三方库
-pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -r requirements.txt
-# 该镜像需卸载自带vllm，否则会有错误
-pip uninstall vllm
+docker exec -it vllm bash
+cd /vllm
 ```
 
-登录[光合开发者社区资源下载中心的DAS](https://developer.hpccube.com/tool)中下载对应版本deepspeed包，然后安装该依赖包，
+登录[光合开发者社区资源下载中心的DAS](https://cancon.hpccube.com:65024/4/main/vllm/DAS1.1.1)中下载对应版本vllm包，然后安装该依赖包，
 
 ```
-pip install -i https://pypi.tuna.tsinghua.edu.cn/simple deepspeed-0.12.3+das1.0+gita724046.abi0.dtk2404.torch2.1.0-cp310-cp310-manylinux2014_x86_64.whl
+pip install -i https://pypi.tuna.tsinghua.edu.cn/simple vllm-0.5.0+das.opt1.3e2c63a.dtk2404.torch2.1.0-cp310-cp310-linux_x86_64.whl
 ```
 
-如需使用llamafactory-cli命令，请执行如下安装
+验证vllm版本
 
 ```
-cd /LLaMA-Factory
-pip install -e ".[torch,metrics]"
+python -c "import vllm; print(vllm.__version__)"
 ```
 
