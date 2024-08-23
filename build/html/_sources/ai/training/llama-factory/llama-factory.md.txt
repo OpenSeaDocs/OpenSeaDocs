@@ -1,10 +1,8 @@
 # LLaMA-factory
 
-## 项目背景
+## 简介
 
-​	开源大模型如LLaMA，Qwen，Baichuan等主要都是使用通用数据进行训练而来，其对于不同下游的使用场景和垂直领域的效果有待进一步提升，衍生出了微调训练相关的需求，包含预训练（pt），指令微调（sft），基于人工反馈的对齐（rlhf）等全链路。但大模型训练对于显存和算力的要求较高，同时也需要下游开发者对大模型本身的技术有一定了解，具有一定的门槛。
-
-​        LLaMA-Factory项目的目标是整合主流的各种高效训练微调技术，适配市场主流开源模型，形成一个功能丰富，适配性好的训练框架。项目提供了多个高层次抽象的调用接口，包含多阶段训练，推理测试，benchmark评测，API Server等，使开发者开箱即用。同时借鉴 Stable Diffsion WebUI相关，本项目提供了基于gradio的网页版工作台，方便初学者可以迅速上手操作，开发出自己的第一个模型。
+LLaMA Factory 是一个简单易用且高效的大型语言模型（Large Language Model）训练与微调平台。通过 LLaMA Factory，可以在无需编写任何代码的前提下，在本地完成上百种预训练模型的微调。
 
 ## 前置准备
 
@@ -16,11 +14,11 @@ git clone https://github.com/hiyouga/LLaMA-Factory.git
 
 - 模型
 
-下载模型至服务器，此处以[Qwen2-7B-Instruct](https://www.modelscope.cn/models/qwen/Qwen2-7B-Instruct)为例。
+下载模型至服务器/data/model文件夹下，此处以[Qwen2-7B-Instruct](https://www.modelscope.cn/models/qwen/Qwen2-7B-Instruct)为例。
 
 ## 环境安装
 
-[DCU](./install_dcu.md)
+[安装-海光DCU](./install_dcu.md)
 
 ## 快速开始
 
@@ -34,7 +32,7 @@ cd /LLaMA-Factory/examples/train_lora
 cp llama3_lora_sft.yaml qwen2_lora_sft.yaml
 ```
 
-修改配置文件中的model_name_or_path模型路径，
+修改配置文件中的model_name_or_path模型路径，关于配置文件的参数含义可参考[官方文档](https://llamafactory.readthedocs.io/zh-cn/latest/)
 
 ```
 vim qwen2_lora_sft.yaml

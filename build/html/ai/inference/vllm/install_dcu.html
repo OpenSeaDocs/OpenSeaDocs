@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>安装-海光DCU &mdash; OpenSeaDocs 0.0.1 文档</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=5a0213dc"></script>
+        <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../../_static/translations.js?v=beaddf03"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            OpenSeaDocs
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../about/index.html">关于</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../os/index.html">操作系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../hc/index.html">异构计算</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">人工智能</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../database/index.html">数据库</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../software/index.html">实用软件</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">OpenSeaDocs</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">安装-海光DCU</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/ai/inference/vllm/install_dcu.md.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="dcu">
+<h1>安装-海光DCU<a class="headerlink" href="#dcu" title="Link to this heading"></a></h1>
+<section id="docker">
+<h2>基于Docker<a class="headerlink" href="#docker" title="Link to this heading"></a></h2>
+<p>以下以K100AI为例，介绍项目运行环境搭建过程。</p>
+<section id="id1">
+<h3>环境依赖<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>DCU驱动</p></li>
+<li><p>DTK</p></li>
+<li><p>Docker</p></li>
+<li><p>Git</p></li>
+</ul>
+</section>
+<section id="id2">
+<h3>前置准备<a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>项目代码</p></li>
+</ul>
+<p>拉取官方项目代码</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">vllm</span><span class="o">-</span><span class="n">project</span><span class="o">/</span><span class="n">vllm</span><span class="o">.</span><span class="n">git</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>容器镜像</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">pull</span> <span class="n">image</span><span class="o">.</span><span class="n">sourcefind</span><span class="o">.</span><span class="n">cn</span><span class="p">:</span><span class="mi">5000</span><span class="o">/</span><span class="n">dcu</span><span class="o">/</span><span class="n">admin</span><span class="o">/</span><span class="n">base</span><span class="o">/</span><span class="n">pytorch</span><span class="p">:</span><span class="mf">2.1.0</span><span class="o">-</span><span class="n">ubuntu20</span><span class="mf">.04</span><span class="o">-</span><span class="n">dtk24</span><span class="mf">.04.1</span><span class="o">-</span><span class="n">py3</span><span class="mf">.10</span>
+</pre></div>
+</div>
+</section>
+<section id="id3">
+<h3>创建容器<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span># 进入vllm项目根目录
+cd vllm
+# 创建容器
+docker run -dit --network=host \
+--name=vllm \
+--restart=on-failure:10 \
+--privileged \
+--device=/dev/kfd --device=/dev/dri \
+--ipc=host --shm-size=32G --group-add video \
+--cap-add=SYS_PTRACE --security-opt seccomp=unconfined \
+-v $PWD:/vllm \
+-v /data/model:/model \
+-v /opt/hyhal:/opt/hyhal \
+-u root --ulimit stack=-1:-1 --ulimit memlock=-1:-1 \
+image.sourcefind.cn:5000/dcu/admin/base/pytorch:2.1.0-ubuntu20.04-dtk24.04.1-py3.10 \
+bash
+</pre></div>
+</div>
+</section>
+<section id="id4">
+<h3>安装第三方库<a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 进入容器项目根目录下</span>
+<span class="n">docker</span> <span class="n">exec</span> <span class="o">-</span><span class="n">it</span> <span class="n">vllm</span> <span class="n">bash</span>
+<span class="n">cd</span> <span class="o">/</span><span class="n">LLaMA</span><span class="o">-</span><span class="n">Factory</span>
+<span class="c1"># 安装第三方库</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">i</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">pypi</span><span class="o">.</span><span class="n">tuna</span><span class="o">.</span><span class="n">tsinghua</span><span class="o">.</span><span class="n">edu</span><span class="o">.</span><span class="n">cn</span><span class="o">/</span><span class="n">simple</span> <span class="o">-</span><span class="n">r</span> <span class="n">requirements</span><span class="o">.</span><span class="n">txt</span>
+<span class="c1"># 该镜像需卸载自带vllm，否则会有错误</span>
+<span class="n">pip</span> <span class="n">uninstall</span> <span class="n">vllm</span>
+</pre></div>
+</div>
+<p>登录<a class="reference external" href="https://developer.hpccube.com/tool">光合开发者社区资源下载中心的DAS</a>中下载对应版本deepspeed包，然后安装该依赖包，</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">i</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">pypi</span><span class="o">.</span><span class="n">tuna</span><span class="o">.</span><span class="n">tsinghua</span><span class="o">.</span><span class="n">edu</span><span class="o">.</span><span class="n">cn</span><span class="o">/</span><span class="n">simple</span> <span class="n">deepspeed</span><span class="o">-</span><span class="mf">0.12.3</span><span class="o">+</span><span class="n">das1</span><span class="mf">.0</span><span class="o">+</span><span class="n">gita724046</span><span class="o">.</span><span class="n">abi0</span><span class="o">.</span><span class="n">dtk2404</span><span class="o">.</span><span class="n">torch2</span><span class="mf">.1.0</span><span class="o">-</span><span class="n">cp310</span><span class="o">-</span><span class="n">cp310</span><span class="o">-</span><span class="n">manylinux2014_x86_64</span><span class="o">.</span><span class="n">whl</span>
+</pre></div>
+</div>
+<p>如需使用llamafactory-cli命令，请执行如下安装</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">/</span><span class="n">LLaMA</span><span class="o">-</span><span class="n">Factory</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">e</span> <span class="s2">&quot;.[torch,metrics]&quot;</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2024, BaiOne Lv。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
