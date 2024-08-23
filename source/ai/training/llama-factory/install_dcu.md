@@ -1,4 +1,4 @@
-# 基于DCU搭建项目运行环境
+# 基于海光DCU搭建项目运行环境
 
 ## 基于Docker搭建
 
@@ -24,7 +24,7 @@ git clone https://github.com/hiyouga/LLaMA-Factory.git
 - 容器镜像
 
 ```
-docker pull image.sourcefind.cn:5000/dcu/admin/base/pytorch:2.1.0-centos7.6-dtk24.04-py310
+docker pull image.sourcefind.cn:5000/dcu/admin/base/pytorch:2.1.0-ubuntu20.04-dtk24.04.1-py3.10
 ```
 
 ### 创建容器
@@ -43,7 +43,7 @@ docker run -dit --network=host \
 -v $PWD:/LLaMA-Factory \
 -v /opt/hyhal:/opt/hyhal \
 -u root --ulimit stack=-1:-1 --ulimit memlock=-1:-1 \
-image.sourcefind.cn:5000/dcu/admin/base/custom:vllm0.3.3-dtk24.04-centos7.6-py310-v1 \
+image.sourcefind.cn:5000/dcu/admin/base/pytorch:2.1.0-ubuntu20.04-dtk24.04.1-py3.10 \
 bash
 ```
 
