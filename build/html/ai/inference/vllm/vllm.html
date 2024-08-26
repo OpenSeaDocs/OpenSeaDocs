@@ -58,7 +58,8 @@
 <li class="toctree-l4"><a class="reference internal" href="#id2">前置准备</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#id3">环境安装</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#id4">快速开始</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id5">参考</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#benchmark">benchmark</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id6">参考</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ollama/ollama.html">ollama</a></li>
@@ -119,13 +120,65 @@
 </section>
 <section id="id3">
 <h2>环境安装<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
-<p>安装-海光DCU</p>
+<p><a class="reference internal" href="install_dcu.html"><span class="doc">安装-海光DCU</span></a></p>
 </section>
 <section id="id4">
 <h2>快速开始<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
-</section>
+<p>vLLM 默认从 HuggingFace 上面下载模型，如果要从 ModelScope 上面下载模型，请通过命令 <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">modelscope</span></code> 安装ModelScope，并设置环境变量：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">VLLM_USE_MODELSCOPE</span><span class="o">=</span><span class="kc">True</span>
+</pre></div>
+</div>
 <section id="id5">
-<h2>参考<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
+<h3>离线批量推理<a class="headerlink" href="#id5" title="Link to this heading"></a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">vllm</span> <span class="kn">import</span> <span class="n">LLM</span><span class="p">,</span> <span class="n">SamplingParams</span>
+
+<span class="n">prompts</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;Hello, my name is&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;The president of the United States is&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;The capital of France is&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;The future of AI is&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+<span class="n">sampling_params</span> <span class="o">=</span> <span class="n">SamplingParams</span><span class="p">(</span><span class="n">temperature</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">top_p</span><span class="o">=</span><span class="mf">0.95</span><span class="p">)</span>
+
+<span class="n">llm</span> <span class="o">=</span> <span class="n">LLM</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s2">&quot;/model/Qwen2-7B-Instruct&quot;</span><span class="p">)</span>
+
+<span class="n">outputs</span> <span class="o">=</span> <span class="n">llm</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">prompts</span><span class="p">,</span> <span class="n">sampling_params</span><span class="p">)</span>
+
+<span class="c1"># Print the outputs.</span>
+<span class="k">for</span> <span class="n">output</span> <span class="ow">in</span> <span class="n">outputs</span><span class="p">:</span>
+    <span class="n">prompt</span> <span class="o">=</span> <span class="n">output</span><span class="o">.</span><span class="n">prompt</span>
+    <span class="n">generated_text</span> <span class="o">=</span> <span class="n">output</span><span class="o">.</span><span class="n">outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">text</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Prompt: </span><span class="si">{</span><span class="n">prompt</span><span class="si">!r}</span><span class="s2">, Generated text: </span><span class="si">{</span><span class="n">generated_text</span><span class="si">!r}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="benchmark">
+<h2>benchmark<a class="headerlink" href="#benchmark" title="Link to this heading"></a></h2>
+<p>基准测试代码位于/vllm/benchmarks目录下</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">/</span><span class="n">vllm</span><span class="o">/</span><span class="n">benchmarks</span>
+</pre></div>
+</div>
+<section id="throughput">
+<h3>throughput<a class="headerlink" href="#throughput" title="Link to this heading"></a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">benchmark_throughput</span><span class="o">.</span><span class="n">py</span> \
+<span class="o">--</span><span class="n">backend</span> <span class="n">vllm</span> \
+<span class="o">--</span><span class="n">dtype</span> <span class="n">float16</span> \
+<span class="o">--</span><span class="n">model</span> <span class="s2">&quot;/model/Qwen2-7B-Instruct&quot;</span> \
+<span class="o">--</span><span class="n">num</span><span class="o">-</span><span class="n">prompts</span> <span class="mi">32</span> \
+<span class="o">--</span><span class="nb">input</span><span class="o">-</span><span class="nb">len</span> <span class="mi">128</span> \
+<span class="o">--</span><span class="n">output</span><span class="o">-</span><span class="nb">len</span> <span class="mi">1024</span> \
+<span class="o">--</span><span class="n">seed</span> <span class="mi">1100</span> \
+<span class="o">--</span><span class="n">tensor</span><span class="o">-</span><span class="n">parallel</span><span class="o">-</span><span class="n">size</span> <span class="mi">4</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="id6">
+<h2>参考<a class="headerlink" href="#id6" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>官方链接：https://github.com/vllm-project/vllm</p></li>
+</ul>
 </section>
 </section>
 

@@ -22,9 +22,45 @@ git clone https://github.com/vllm-project/vllm.git
 
 ## 快速开始
 
-### benchmark
+vLLM 默认从 HuggingFace 上面下载模型，如果要从 ModelScope 上面下载模型，请通过命令 `pip install modelscope` 安装ModelScope，并设置环境变量：
 
-#### throughput
+```
+export VLLM_USE_MODELSCOPE=True
+```
+
+### 离线批量推理
+
+```
+from vllm import LLM, SamplingParams
+
+prompts = [
+    "Hello, my name is",
+    "The president of the United States is",
+    "The capital of France is",
+    "The future of AI is",
+]
+sampling_params = SamplingParams(temperature=0.8, top_p=0.95)
+
+llm = LLM(model="/model/Qwen2-7B-Instruct")
+
+outputs = llm.generate(prompts, sampling_params)
+
+# Print the outputs.
+for output in outputs:
+    prompt = output.prompt
+    generated_text = output.outputs[0].text
+    print(f"Prompt: {prompt!r}, Generated text: {generated_text!r}")
+```
+
+## benchmark
+
+基准测试代码位于/vllm/benchmarks目录下
+
+```
+cd /vllm/benchmarks
+```
+
+### throughput
 
 ```
 python benchmark_throughput.py \
@@ -43,3 +79,4 @@ python benchmark_throughput.py \
 ## 参考
 
 - 官方链接：https://github.com/vllm-project/vllm
+

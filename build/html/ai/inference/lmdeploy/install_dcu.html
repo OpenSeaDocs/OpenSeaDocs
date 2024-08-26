@@ -68,7 +68,7 @@
       <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
       <li class="breadcrumb-item active">安装-海光DCU</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../../../_sources/ai/inference/vllm/install_dcu.md.txt" rel="nofollow"> 查看页面源码</a>
+            <a href="../../../_sources/ai/inference/lmdeploy/install_dcu.md.txt" rel="nofollow"> 查看页面源码</a>
       </li>
   </ul>
   <hr/>
@@ -96,7 +96,7 @@
 <li><p>项目代码</p></li>
 </ul>
 <p>拉取官方项目代码</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="o">-</span><span class="n">b</span> <span class="n">v0</span><span class="mf">.5.0</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">vllm</span><span class="o">-</span><span class="n">project</span><span class="o">/</span><span class="n">vllm</span><span class="o">.</span><span class="n">git</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">InternLM</span><span class="o">/</span><span class="n">lmdeploy</span><span class="o">.</span><span class="n">git</span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -108,17 +108,17 @@
 </section>
 <section id="id3">
 <h3>创建容器<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span># 进入vllm项目根目录
-cd vllm
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span># 进入lmdeploy项目根目录
+cd lmdeploy
 # 创建容器
 docker run -dit --network=host \
---name=vllm \
+--name=lmdeploy \
 --restart=on-failure:10 \
 --privileged \
 --device=/dev/kfd --device=/dev/dri \
 --ipc=host --shm-size=32G --group-add video \
 --cap-add=SYS_PTRACE --security-opt seccomp=unconfined \
--v $PWD:/vllm \
+-v $PWD:/lmdeploy \
 -v /data/model:/model \
 -v /opt/hyhal:/opt/hyhal \
 -u root --ulimit stack=-1:-1 --ulimit memlock=-1:-1 \
@@ -128,18 +128,16 @@ bash
 </div>
 </section>
 <section id="id4">
-<h3>安装第三方库<a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
+<h3>安装依赖<a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 进入容器项目根目录下</span>
-<span class="n">docker</span> <span class="n">exec</span> <span class="o">-</span><span class="n">it</span> <span class="n">vllm</span> <span class="n">bash</span>
-<span class="n">cd</span> <span class="o">/</span><span class="n">vllm</span>
+<span class="n">docker</span> <span class="n">exec</span> <span class="o">-</span><span class="n">it</span> <span class="n">lmdeploy</span> <span class="n">bash</span>
+<span class="n">cd</span> <span class="o">/</span><span class="n">lmdeploy</span>
+<span class="c1"># 需要更换transformers版本至4.41.2，否则qwen2的推理会报错</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">i</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">pypi</span><span class="o">.</span><span class="n">tuna</span><span class="o">.</span><span class="n">tsinghua</span><span class="o">.</span><span class="n">edu</span><span class="o">.</span><span class="n">cn</span><span class="o">/</span><span class="n">simple</span> <span class="n">transformers</span><span class="o">==</span><span class="mf">4.41.2</span>
 </pre></div>
 </div>
-<p>登录<a class="reference external" href="https://cancon.hpccube.com:65024/4/main/vllm/DAS1.1.1">光合开发者社区资源下载中心的DAS</a>中下载对应版本vllm包，然后安装该依赖包，</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">i</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">pypi</span><span class="o">.</span><span class="n">tuna</span><span class="o">.</span><span class="n">tsinghua</span><span class="o">.</span><span class="n">edu</span><span class="o">.</span><span class="n">cn</span><span class="o">/</span><span class="n">simple</span> <span class="n">vllm</span><span class="o">-</span><span class="mf">0.5.0</span><span class="o">+</span><span class="n">das</span><span class="o">.</span><span class="n">opt1</span><span class="mf">.3e2</span><span class="n">c63a</span><span class="o">.</span><span class="n">dtk2404</span><span class="o">.</span><span class="n">torch2</span><span class="mf">.1.0</span><span class="o">-</span><span class="n">cp310</span><span class="o">-</span><span class="n">cp310</span><span class="o">-</span><span class="n">linux_x86_64</span><span class="o">.</span><span class="n">whl</span>
-</pre></div>
-</div>
-<p>验证vllm版本</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">c</span> <span class="s2">&quot;import vllm; print(vllm.__version__)&quot;</span>
+<p>验证lmdeploy版本</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">c</span> <span class="s2">&quot;import lmdeploy; print(lmdeploy.__version__)&quot;</span>
 </pre></div>
 </div>
 </section>

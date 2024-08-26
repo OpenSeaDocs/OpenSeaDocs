@@ -60,7 +60,8 @@
 <li class="toctree-l4"><a class="reference internal" href="#id2">前置准备</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#id3">环境安装</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#id4">快速开始</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id5">参考</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#benchmark">benchmark</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id6">参考</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../transformers/transformers.html">transformers</a></li>
@@ -102,18 +103,52 @@
 <h1>lmdeploy<a class="headerlink" href="#lmdeploy" title="Link to this heading"></a></h1>
 <section id="id1">
 <h2>简介<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<p>LMDeploy 由 <a class="reference external" href="https://github.com/open-mmlab/mmdeploy">MMDeploy</a> 和 <a class="reference external" href="https://github.com/open-mmlab/mmrazor">MMRazor</a> 团队联合开发，是涵盖了 LLM 任务的全套轻量化、部署和服务解决方案。</p>
 </section>
 <section id="id2">
 <h2>前置准备<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>项目代码</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">InternLM</span><span class="o">/</span><span class="n">lmdeploy</span><span class="o">.</span><span class="n">git</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>模型</p></li>
+</ul>
+<p>下载模型至服务器/data/model文件夹下，此处以<a class="reference external" href="https://www.modelscope.cn/models/qwen/Qwen2-7B-Instruct">Qwen2-7B-Instruct</a>为例。</p>
 </section>
 <section id="id3">
 <h2>环境安装<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<p><a class="reference internal" href="install_dcu.html"><span class="doc">安装-海光DCU</span></a></p>
 </section>
 <section id="id4">
 <h2>快速开始<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
-</section>
+<p>LMDeploy 默认从 HuggingFace 上面下载模型，如果要从 ModelScope 上面下载模型，请通过命令 <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">modelscope</span></code> 安装ModelScope，并设置环境变量：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">LMDEPLOY_USE_MODELSCOPE</span><span class="o">=</span><span class="kc">True</span>
+</pre></div>
+</div>
 <section id="id5">
-<h2>参考<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
+<h3>离线批处理<a class="headerlink" href="#id5" title="Link to this heading"></a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">lmdeploy</span>
+<span class="n">pipe</span> <span class="o">=</span> <span class="n">lmdeploy</span><span class="o">.</span><span class="n">pipeline</span><span class="p">(</span><span class="s2">&quot;/model/Qwen2-7B-Instruct&quot;</span><span class="p">)</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">pipe</span><span class="p">([</span><span class="s2">&quot;Hi, pls intro yourself&quot;</span><span class="p">,</span> <span class="s2">&quot;Shanghai is&quot;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="benchmark">
+<h2>benchmark<a class="headerlink" href="#benchmark" title="Link to this heading"></a></h2>
+<section id="throughput">
+<h3>throughput<a class="headerlink" href="#throughput" title="Link to this heading"></a></h3>
+</section>
+</section>
+<section id="id6">
+<h2>参考<a class="headerlink" href="#id6" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>官方项目链接：https://github.com/InternLM/lmdeploy</p></li>
+</ul>
 </section>
 </section>
 

@@ -22,6 +22,12 @@ git clone https://github.com/InternLM/lmdeploy.git
 
 ## 快速开始
 
+LMDeploy 默认从 HuggingFace 上面下载模型，如果要从 ModelScope 上面下载模型，请通过命令 `pip install modelscope` 安装ModelScope，并设置环境变量：
+
+```
+export LMDEPLOY_USE_MODELSCOPE=True
+```
+
 ### 离线批处理
 
 ```
@@ -31,6 +37,12 @@ response = pipe(["Hi, pls intro yourself", "Shanghai is"])
 print(response)
 ```
 
+## benchmark
+
+### throughput
+
 
 
 ## 参考
+
+- 官方项目链接：https://github.com/InternLM/lmdeploy
