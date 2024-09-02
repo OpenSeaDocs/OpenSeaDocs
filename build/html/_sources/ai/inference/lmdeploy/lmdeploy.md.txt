@@ -32,7 +32,7 @@ export LMDEPLOY_USE_MODELSCOPE=True
 
 ```
 import lmdeploy
-pipe = lmdeploy.pipeline("/model/Qwen2-7B-Instruct")
+pipe = lmdeploy.pipeline("/data/model/Qwen2-7B-Instruct")
 response = pipe(["Hi, pls intro yourself", "Shanghai is"])
 print(response)
 ```

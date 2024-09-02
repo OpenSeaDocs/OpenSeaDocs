@@ -131,7 +131,7 @@
 <section id="id5">
 <h3>离线批处理<a class="headerlink" href="#id5" title="Link to this heading"></a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">lmdeploy</span>
-<span class="n">pipe</span> <span class="o">=</span> <span class="n">lmdeploy</span><span class="o">.</span><span class="n">pipeline</span><span class="p">(</span><span class="s2">&quot;/model/Qwen2-7B-Instruct&quot;</span><span class="p">)</span>
+<span class="n">pipe</span> <span class="o">=</span> <span class="n">lmdeploy</span><span class="o">.</span><span class="n">pipeline</span><span class="p">(</span><span class="s2">&quot;/data/model/Qwen2-7B-Instruct&quot;</span><span class="p">)</span>
 <span class="n">response</span> <span class="o">=</span> <span class="n">pipe</span><span class="p">([</span><span class="s2">&quot;Hi, pls intro yourself&quot;</span><span class="p">,</span> <span class="s2">&quot;Shanghai is&quot;</span><span class="p">])</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
 </pre></div>
