@@ -4,11 +4,7 @@
 
 vLLM是一个开源的LLM推理和服务引擎。
 
-## 安装
-
-[DCU](./install_dcu.md)
-
-## 快速开始
+## 前置准备
 
 - 项目代码
 
@@ -16,17 +12,21 @@ vLLM是一个开源的LLM推理和服务引擎。
 git clone https://github.com/vllm-project/vllm.git
 ```
 
-- 环境变量
+- 模型
+
+下载模型至服务器/data/model文件夹下，此处以[Qwen2-7B-Instruct](https://www.modelscope.cn/models/qwen/Qwen2-7B-Instruct)为例。
+
+## 环境安装
+
+[安装-海光DCU](./install_dcu.md)
+
+## 快速开始
 
 vLLM 默认从 HuggingFace 上面下载模型，如果要从 ModelScope 上面下载模型，请通过命令 `pip install modelscope` 安装ModelScope，并设置环境变量：
 
 ```
 export VLLM_USE_MODELSCOPE=True
 ```
-
-- 准备模型
-
-下载模型至服务器/data/model文件夹下，此处以[Qwen2-7B-Instruct](https://www.modelscope.cn/models/qwen/Qwen2-7B-Instruct)为例。
 
 ### 离线批量推理
 
@@ -52,12 +52,12 @@ for output in outputs:
     print(f"Prompt: {prompt!r}, Generated text: {generated_text!r}")
 ```
 
-## Benchmark
+## benchmark
 
-进入项目benchmark目录下，
+基准测试代码位于/vllm/benchmarks目录下
 
 ```
-cd vllm/benchmarks
+cd /vllm/benchmarks
 ```
 
 ### throughput
@@ -74,13 +74,9 @@ python benchmark_throughput.py \
 --tensor-parallel-size 4
 ```
 
-## 模型支持
 
-|                             系列                             | 模型 | 备注 |
-| :----------------------------------------------------------: | :--: | :--: |
-| [Qwen](https://www.modelscope.cn/organization/qwen?tab=model) |      |      |
-| [Qwen2](https://www.modelscope.cn/organization/qwen?tab=model) |      |      |
 
 ## 参考
 
 - 官方链接：https://github.com/vllm-project/vllm
+

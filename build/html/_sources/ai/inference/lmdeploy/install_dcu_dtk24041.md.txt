@@ -24,15 +24,12 @@ git clone https://github.com/InternLM/lmdeploy.git
 - 容器镜像
 
 ```
-docker pull image.sourcefind.cn:5000/dcu/admin/base/custom:lmdeploy1.0-dtk23.10-torch1.13-py38-latest
+docker pull image.sourcefind.cn:5000/dcu/admin/base/pytorch:2.1.0-ubuntu20.04-dtk24.04.1-py3.10
 ```
 
 ### 创建容器
 
 ```
-# 进入lmdeploy项目根目录
-cd lmdeploy
-# 创建容器
 docker run -dit --network=host \
 --name=lmdeploy \
 --restart=on-failure:10 \
@@ -40,11 +37,10 @@ docker run -dit --network=host \
 --device=/dev/kfd --device=/dev/dri \
 --ipc=host --shm-size=32G --group-add video \
 --cap-add=SYS_PTRACE --security-opt seccomp=unconfined \
--v $PWD:/lmdeploy \
--v /data/model:/model \
+-v /data:/data \
 -v /opt/hyhal:/opt/hyhal \
 -u root --ulimit stack=-1:-1 --ulimit memlock=-1:-1 \
-image.sourcefind.cn:5000/dcu/admin/base/custom:lmdeploy1.0-dtk23.10-torch1.13-py38-latest \
+image.sourcefind.cn:5000/dcu/admin/base/pytorch:2.1.0-ubuntu20.04-dtk24.04.1-py3.10 \
 bash
 ```
 
@@ -53,7 +49,9 @@ bash
 ```
 # 进入容器项目根目录下
 docker exec -it lmdeploy bash
-cd /lmdeploy
+cd /data/project/lmdeploy
+# 需要更换transformers版本至4.41.2，否则qwen2的推理会报错
+pip install -i https://pypi.tuna.tsinghua.edu.cn/simple transformers==4.41.2
 ```
 
 验证lmdeploy版本

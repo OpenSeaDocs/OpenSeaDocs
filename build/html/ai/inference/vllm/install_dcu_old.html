@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>安装 &mdash; OpenSeaDocs 0.0.1 文档</title>
+  <title>安装-海光DCU &mdash; OpenSeaDocs 0.0.1 文档</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
 
@@ -66,9 +66,9 @@
           <div role="navigation" aria-label="页面导航">
   <ul class="wy-breadcrumbs">
       <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">安装</li>
+      <li class="breadcrumb-item active">安装-海光DCU</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../../../_sources/ai/inference/vllm/install_dcu.md.txt" rel="nofollow"> 查看页面源码</a>
+            <a href="../../../_sources/ai/inference/vllm/install_dcu_old.md.txt" rel="nofollow"> 查看页面源码</a>
       </li>
   </ul>
   <hr/>
@@ -76,82 +76,72 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="id1">
-<h1>安装<a class="headerlink" href="#id1" title="Link to this heading"></a></h1>
-<p>基于海光DCU加速卡适配vLLM框架</p>
-<section id="id2">
-<h2>要求<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+  <section id="dcu">
+<h1>安装-海光DCU<a class="headerlink" href="#dcu" title="Link to this heading"></a></h1>
+<section id="docker">
+<h2>基于Docker<a class="headerlink" href="#docker" title="Link to this heading"></a></h2>
+<p>以下以K100AI为例，介绍项目运行环境搭建过程。</p>
+<section id="id1">
+<h3>环境依赖<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
 <ul class="simple">
-<li><p>OS: Linux</p></li>
-<li><p>Python: 3.8 – 3.11</p></li>
-<li><p>DCU: K100AI、K100、Z100L、Z100</p></li>
-<li><p>驱动: 5.7.1</p></li>
-<li><p>DTK: 24.04.1</p></li>
+<li><p>DCU驱动</p></li>
+<li><p>DTK</p></li>
+<li><p>Docker</p></li>
+<li><p>Git</p></li>
 </ul>
 </section>
-<section id="docker">
-<h2>Docker（推荐）<a class="headerlink" href="#docker" title="Link to this heading"></a></h2>
+<section id="id2">
+<h3>前置准备<a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
 <ul class="simple">
-<li><p>拉取代码</p></li>
+<li><p>项目代码</p></li>
 </ul>
+<p>拉取官方项目代码</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="o">-</span><span class="n">b</span> <span class="n">v0</span><span class="mf">.5.0</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">vllm</span><span class="o">-</span><span class="n">project</span><span class="o">/</span><span class="n">vllm</span><span class="o">.</span><span class="n">git</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li><p>拉取镜像</p></li>
+<li><p>容器镜像</p></li>
 </ul>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">pull</span> <span class="n">image</span><span class="o">.</span><span class="n">sourcefind</span><span class="o">.</span><span class="n">cn</span><span class="p">:</span><span class="mi">5000</span><span class="o">/</span><span class="n">dcu</span><span class="o">/</span><span class="n">admin</span><span class="o">/</span><span class="n">base</span><span class="o">/</span><span class="n">pytorch</span><span class="p">:</span><span class="mf">2.1.0</span><span class="o">-</span><span class="n">ubuntu20</span><span class="mf">.04</span><span class="o">-</span><span class="n">dtk24</span><span class="mf">.04.1</span><span class="o">-</span><span class="n">py3</span><span class="mf">.10</span>
 </pre></div>
 </div>
-<ul class="simple">
-<li><p>创建容器</p></li>
-</ul>
-<p>默认项目所依赖资源放置在/data目录下，可根据实际情况自行修改目录映射关系</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">run</span> <span class="o">-</span><span class="n">dit</span> \
-       <span class="o">--</span><span class="n">network</span><span class="o">=</span><span class="n">host</span> \
-       <span class="o">--</span><span class="n">name</span><span class="o">=</span><span class="n">vllm</span> \
-       <span class="o">--</span><span class="n">restart</span><span class="o">=</span><span class="n">on</span><span class="o">-</span><span class="n">failure</span><span class="p">:</span><span class="mi">10</span> \
-       <span class="o">--</span><span class="n">privileged</span> \
-       <span class="o">--</span><span class="n">device</span><span class="o">=/</span><span class="n">dev</span><span class="o">/</span><span class="n">kfd</span> <span class="o">--</span><span class="n">device</span><span class="o">=/</span><span class="n">dev</span><span class="o">/</span><span class="n">dri</span> \
-       <span class="o">--</span><span class="n">ipc</span><span class="o">=</span><span class="n">host</span> <span class="o">--</span><span class="n">shm</span><span class="o">-</span><span class="n">size</span><span class="o">=</span><span class="mi">32</span><span class="n">G</span> <span class="o">--</span><span class="n">group</span><span class="o">-</span><span class="n">add</span> <span class="n">video</span> \
-       <span class="o">--</span><span class="n">cap</span><span class="o">-</span><span class="n">add</span><span class="o">=</span><span class="n">SYS_PTRACE</span> <span class="o">--</span><span class="n">security</span><span class="o">-</span><span class="n">opt</span> <span class="n">seccomp</span><span class="o">=</span><span class="n">unconfined</span> \
-       <span class="o">-</span><span class="n">v</span> <span class="o">/</span><span class="n">data</span><span class="p">:</span><span class="o">/</span><span class="n">data</span> \
-       <span class="o">-</span><span class="n">v</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">hyhal</span><span class="p">:</span><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">hyhal</span> \
-       <span class="o">-</span><span class="n">u</span> <span class="n">root</span> <span class="o">--</span><span class="n">ulimit</span> <span class="n">stack</span><span class="o">=-</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span> <span class="o">--</span><span class="n">ulimit</span> <span class="n">memlock</span><span class="o">=-</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span> \
-       <span class="n">image</span><span class="o">.</span><span class="n">sourcefind</span><span class="o">.</span><span class="n">cn</span><span class="p">:</span><span class="mi">5000</span><span class="o">/</span><span class="n">dcu</span><span class="o">/</span><span class="n">admin</span><span class="o">/</span><span class="n">base</span><span class="o">/</span><span class="n">pytorch</span><span class="p">:</span><span class="mf">2.1.0</span><span class="o">-</span><span class="n">ubuntu20</span><span class="mf">.04</span><span class="o">-</span><span class="n">dtk24</span><span class="mf">.04.1</span><span class="o">-</span><span class="n">py3</span><span class="mf">.10</span> \
-       <span class="n">bash</span>
+</section>
+<section id="id3">
+<h3>创建容器<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 创建容器</span>
+<span class="n">docker</span> <span class="n">run</span> <span class="o">-</span><span class="n">dit</span> <span class="o">--</span><span class="n">network</span><span class="o">=</span><span class="n">host</span> \
+<span class="o">--</span><span class="n">name</span><span class="o">=</span><span class="n">vllm</span> \
+<span class="o">--</span><span class="n">restart</span><span class="o">=</span><span class="n">on</span><span class="o">-</span><span class="n">failure</span><span class="p">:</span><span class="mi">10</span> \
+<span class="o">--</span><span class="n">privileged</span> \
+<span class="o">--</span><span class="n">device</span><span class="o">=/</span><span class="n">dev</span><span class="o">/</span><span class="n">kfd</span> <span class="o">--</span><span class="n">device</span><span class="o">=/</span><span class="n">dev</span><span class="o">/</span><span class="n">dri</span> \
+<span class="o">--</span><span class="n">ipc</span><span class="o">=</span><span class="n">host</span> <span class="o">--</span><span class="n">shm</span><span class="o">-</span><span class="n">size</span><span class="o">=</span><span class="mi">32</span><span class="n">G</span> <span class="o">--</span><span class="n">group</span><span class="o">-</span><span class="n">add</span> <span class="n">video</span> \
+<span class="o">--</span><span class="n">cap</span><span class="o">-</span><span class="n">add</span><span class="o">=</span><span class="n">SYS_PTRACE</span> <span class="o">--</span><span class="n">security</span><span class="o">-</span><span class="n">opt</span> <span class="n">seccomp</span><span class="o">=</span><span class="n">unconfined</span> \
+<span class="o">-</span><span class="n">v</span> <span class="o">/</span><span class="n">data</span><span class="p">:</span><span class="o">/</span><span class="n">data</span> \
+<span class="o">-</span><span class="n">v</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">hyhal</span><span class="p">:</span><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">hyhal</span> \
+<span class="o">-</span><span class="n">u</span> <span class="n">root</span> <span class="o">--</span><span class="n">ulimit</span> <span class="n">stack</span><span class="o">=-</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span> <span class="o">--</span><span class="n">ulimit</span> <span class="n">memlock</span><span class="o">=-</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span> \
+<span class="n">image</span><span class="o">.</span><span class="n">sourcefind</span><span class="o">.</span><span class="n">cn</span><span class="p">:</span><span class="mi">5000</span><span class="o">/</span><span class="n">dcu</span><span class="o">/</span><span class="n">admin</span><span class="o">/</span><span class="n">base</span><span class="o">/</span><span class="n">pytorch</span><span class="p">:</span><span class="mf">2.1.0</span><span class="o">-</span><span class="n">ubuntu20</span><span class="mf">.04</span><span class="o">-</span><span class="n">dtk24</span><span class="mf">.04.1</span><span class="o">-</span><span class="n">py3</span><span class="mf">.10</span> \
+<span class="n">bash</span>
 </pre></div>
 </div>
-<ul class="simple">
-<li><p>安装第三方库</p></li>
-</ul>
-<p>先进行容器vllm项目根目录下，</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">exec</span> <span class="o">-</span><span class="n">it</span> <span class="n">vllm</span> <span class="n">bash</span>
+</section>
+<section id="id4">
+<h3>安装第三方库<a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 进入容器项目根目录下</span>
+<span class="n">docker</span> <span class="n">exec</span> <span class="o">-</span><span class="n">it</span> <span class="n">vllm</span> <span class="n">bash</span>
 <span class="n">cd</span> <span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">project</span><span class="o">/</span><span class="n">vllm</span>
 </pre></div>
 </div>
-<p>登录<a class="reference external" href="https://cancon.hpccube.com:65024/4/main/vllm/DAS1.1.1">光合开发者社区</a>中下载对应版本vllm包，然后安装该依赖包，</p>
+<p>登录<a class="reference external" href="https://cancon.hpccube.com:65024/4/main/vllm/DAS1.1.1">光合开发者社区资源下载中心的DAS</a>中下载对应版本vllm包，然后安装该依赖包，</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">i</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">pypi</span><span class="o">.</span><span class="n">tuna</span><span class="o">.</span><span class="n">tsinghua</span><span class="o">.</span><span class="n">edu</span><span class="o">.</span><span class="n">cn</span><span class="o">/</span><span class="n">simple</span> <span class="n">vllm</span><span class="o">-</span><span class="mf">0.5.0</span><span class="o">+</span><span class="n">das</span><span class="o">.</span><span class="n">opt1</span><span class="mf">.3e2</span><span class="n">c63a</span><span class="o">.</span><span class="n">dtk2404</span><span class="o">.</span><span class="n">torch2</span><span class="mf">.1.0</span><span class="o">-</span><span class="n">cp310</span><span class="o">-</span><span class="n">cp310</span><span class="o">-</span><span class="n">linux_x86_64</span><span class="o">.</span><span class="n">whl</span>
+<span class="c1"># 降低transformers包版本至4.33.1，否则baichuan模型会报错；其他模型需要版本4.43.4</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">i</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">pypi</span><span class="o">.</span><span class="n">tuna</span><span class="o">.</span><span class="n">tsinghua</span><span class="o">.</span><span class="n">edu</span><span class="o">.</span><span class="n">cn</span><span class="o">/</span><span class="n">simple</span> <span class="n">transformers</span><span class="o">==</span><span class="mf">4.33.1</span>
 </pre></div>
 </div>
-<ul class="simple">
-<li><p>额外步骤</p></li>
-</ul>
-<p>对于一些特殊的模型需要安装额外的依赖包</p>
-<p>【Baichuan1.0系列】</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">i</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">pypi</span><span class="o">.</span><span class="n">tuna</span><span class="o">.</span><span class="n">tsinghua</span><span class="o">.</span><span class="n">edu</span><span class="o">.</span><span class="n">cn</span><span class="o">/</span><span class="n">simple</span> <span class="n">transformers</span><span class="o">==</span><span class="mf">4.33.1</span>
+<p>验证vllm版本</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">c</span> <span class="s2">&quot;import vllm; print(vllm.__version__)&quot;</span>
 </pre></div>
 </div>
 </section>
-<section id="conda">
-<h2>Conda<a class="headerlink" href="#conda" title="Link to this heading"></a></h2>
-<p>未更新</p>
-</section>
-<section id="id3">
-<h2>其他<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
-<ul class="simple">
-<li><p>官方安装文档：https://docs.vllm.ai/en/latest/getting_started/installation.html</p></li>
-</ul>
 </section>
 </section>
 
