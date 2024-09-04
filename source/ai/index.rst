@@ -4,6 +4,4 @@
 .. toctree::
    :maxdepth: 1
 
-   learning/index
-   training/index
    inference/index

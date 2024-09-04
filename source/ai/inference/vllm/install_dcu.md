@@ -69,7 +69,7 @@ pip install -i https://pypi.tuna.tsinghua.edu.cn/simple vllm-0.5.0+das.opt1.3e2c
 pip install -i https://pypi.tuna.tsinghua.edu.cn/simple transformers==4.33.1
 ```
 
-## Conda
+## Pip
 
 未更新
 

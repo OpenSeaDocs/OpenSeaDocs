@@ -70,13 +70,6 @@ python benchmark_throughput.py \
        --tensor-parallel-size 4
 ```
 
-## 模型支持
-
-|                             系列                             |      模型       | 备注 |
-| :----------------------------------------------------------: | :-------------: | :--: |
-| [Qwen](https://www.modelscope.cn/organization/qwen?tab=model) | 7B、14B、72B等  |      |
-| [Qwen2](https://www.modelscope.cn/organization/qwen?tab=model) | 0.5B、7B、72B等 |      |
-
 ## 参考
 
 - 官方链接：[https://github.com/vllm-project/vllm](https://github.com/vllm-project/vllm)
