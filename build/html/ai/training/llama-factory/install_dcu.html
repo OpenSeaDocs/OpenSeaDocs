@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>基于海光DCU搭建项目运行环境 &mdash; OpenSeaDocs 0.0.1 文档</title>
+  <title>安装-海光DCU &mdash; OpenSeaDocs 0.0.1 文档</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
 
@@ -66,7 +66,7 @@
           <div role="navigation" aria-label="页面导航">
   <ul class="wy-breadcrumbs">
       <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">基于海光DCU搭建项目运行环境</li>
+      <li class="breadcrumb-item active">安装-海光DCU</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../../_sources/ai/training/llama-factory/install_dcu.md.txt" rel="nofollow"> 查看页面源码</a>
       </li>
@@ -77,9 +77,9 @@
            <div itemprop="articleBody">
              
   <section id="dcu">
-<h1>基于海光DCU搭建项目运行环境<a class="headerlink" href="#dcu" title="Link to this heading"></a></h1>
+<h1>安装-海光DCU<a class="headerlink" href="#dcu" title="Link to this heading"></a></h1>
 <section id="docker">
-<h2>基于Docker搭建<a class="headerlink" href="#docker" title="Link to this heading"></a></h2>
+<h2>基于Docker<a class="headerlink" href="#docker" title="Link to this heading"></a></h2>
 <p>以下以K100AI为例，介绍项目运行环境搭建过程。</p>
 <section id="id1">
 <h3>环境依赖<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
@@ -119,6 +119,7 @@ docker run -dit --network=host \
 --ipc=host --shm-size=32G --group-add video \
 --cap-add=SYS_PTRACE --security-opt seccomp=unconfined \
 -v $PWD:/LLaMA-Factory \
+-v /data/model:/model \
 -v /opt/hyhal:/opt/hyhal \
 -u root --ulimit stack=-1:-1 --ulimit memlock=-1:-1 \
 image.sourcefind.cn:5000/dcu/admin/base/pytorch:2.1.0-ubuntu20.04-dtk24.04.1-py3.10 \

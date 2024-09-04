@@ -1,6 +1,6 @@
-# 基于海光DCU搭建项目运行环境
+# 安装-海光DCU
 
-## 基于Docker搭建
+## 基于Docker
 
 以下以K100AI为例，介绍项目运行环境搭建过程。
 
@@ -41,6 +41,7 @@ docker run -dit --network=host \
 --ipc=host --shm-size=32G --group-add video \
 --cap-add=SYS_PTRACE --security-opt seccomp=unconfined \
 -v $PWD:/LLaMA-Factory \
+-v /data/model:/model \
 -v /opt/hyhal:/opt/hyhal \
 -u root --ulimit stack=-1:-1 --ulimit memlock=-1:-1 \
 image.sourcefind.cn:5000/dcu/admin/base/pytorch:2.1.0-ubuntu20.04-dtk24.04.1-py3.10 \

@@ -1,6 +1,6 @@
 # LLaMA-factory
 
-## 项目简介
+## 简介
 
 LLaMA Factory 是一个简单易用且高效的大型语言模型（Large Language Model）训练与微调平台。通过 LLaMA Factory，可以在无需编写任何代码的前提下，在本地完成上百种预训练模型的微调。
 
@@ -14,11 +14,11 @@ git clone https://github.com/hiyouga/LLaMA-Factory.git
 
 - 模型
 
-下载模型至服务器，此处以[Qwen2-7B-Instruct](https://www.modelscope.cn/models/qwen/Qwen2-7B-Instruct)为例。
+下载模型至服务器/data/model文件夹下，此处以[Qwen2-7B-Instruct](https://www.modelscope.cn/models/qwen/Qwen2-7B-Instruct)为例。
 
 ## 环境安装
 
-[基于海光DCU搭建项目运行环境](./install_dcu.md)
+[安装-海光DCU](./install_dcu.md)
 
 ## 快速开始
 
