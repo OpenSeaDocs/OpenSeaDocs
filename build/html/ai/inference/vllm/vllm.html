@@ -22,7 +22,7 @@
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../../genindex.html" />
     <link rel="search" title="搜索" href="../../../search.html" />
-    <link rel="next" title="ollama" href="../ollama/ollama.html" />
+    <link rel="next" title="实用软件" href="../../../software/index.html" />
     <link rel="prev" title="模型推理" href="../index.html" /> 
 </head>
 
@@ -47,29 +47,20 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../../about/index.html">关于</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../os/index.html">操作系统</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../hc/index.html">异构计算</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../../index.html">人工智能</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../../learning/index.html">学习框架</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../training/index.html">模型训练</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../index.html">模型推理</a><ul class="current">
 <li class="toctree-l3 current"><a class="current reference internal" href="#">vLLM</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#id1">简介</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#id2">安装</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#id3">快速开始</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#benchmark">Benchmark</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id5">模型支持</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id6">参考</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../ollama/ollama.html">ollama</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../lmdeploy/lmdeploy.html">lmdeploy</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../transformers/transformers.html">transformers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5">参考</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../../database/index.html">数据库</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../../../software/index.html">实用软件</a></li>
 </ul>
 
@@ -107,7 +98,8 @@
 </section>
 <section id="id2">
 <h2>安装<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
-<p><a class="reference internal" href="install_dcu.html"><span class="doc">DCU</span></a></p>
+<p><a class="reference internal" href="install_gpu.html"><span class="doc">基于GPU</span></a></p>
+<p><a class="reference internal" href="install_dcu.html"><span class="doc">基于DCU</span></a></p>
 </section>
 <section id="id3">
 <h2>快速开始<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
@@ -115,13 +107,6 @@
 <li><p>项目代码</p></li>
 </ul>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">vllm</span><span class="o">-</span><span class="n">project</span><span class="o">/</span><span class="n">vllm</span><span class="o">.</span><span class="n">git</span>
-</pre></div>
-</div>
-<ul class="simple">
-<li><p>环境变量</p></li>
-</ul>
-<p>vLLM 默认从 HuggingFace 上面下载模型，如果要从 ModelScope 上面下载模型，请通过命令 <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">modelscope</span></code> 安装ModelScope，并设置环境变量：</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">VLLM_USE_MODELSCOPE</span><span class="o">=</span><span class="kc">True</span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -162,45 +147,22 @@
 <section id="throughput">
 <h3>throughput<a class="headerlink" href="#throughput" title="Link to this heading"></a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">benchmark_throughput</span><span class="o">.</span><span class="n">py</span> \
-<span class="o">--</span><span class="n">backend</span> <span class="n">vllm</span> \
-<span class="o">--</span><span class="n">dtype</span> <span class="n">float16</span> \
-<span class="o">--</span><span class="n">model</span> <span class="s2">&quot;/model/Qwen2-7B-Instruct&quot;</span> \
-<span class="o">--</span><span class="n">num</span><span class="o">-</span><span class="n">prompts</span> <span class="mi">32</span> \
-<span class="o">--</span><span class="nb">input</span><span class="o">-</span><span class="nb">len</span> <span class="mi">128</span> \
-<span class="o">--</span><span class="n">output</span><span class="o">-</span><span class="nb">len</span> <span class="mi">1024</span> \
-<span class="o">--</span><span class="n">seed</span> <span class="mi">1100</span> \
-<span class="o">--</span><span class="n">tensor</span><span class="o">-</span><span class="n">parallel</span><span class="o">-</span><span class="n">size</span> <span class="mi">4</span>
+       <span class="o">--</span><span class="n">backend</span> <span class="n">vllm</span> \
+       <span class="o">--</span><span class="n">dtype</span> <span class="n">float16</span> \
+       <span class="o">--</span><span class="n">model</span> <span class="s2">&quot;/model/Qwen2-7B-Instruct&quot;</span> \
+       <span class="o">--</span><span class="n">num</span><span class="o">-</span><span class="n">prompts</span> <span class="mi">32</span> \
+       <span class="o">--</span><span class="nb">input</span><span class="o">-</span><span class="nb">len</span> <span class="mi">128</span> \
+       <span class="o">--</span><span class="n">output</span><span class="o">-</span><span class="nb">len</span> <span class="mi">1024</span> \
+       <span class="o">--</span><span class="n">seed</span> <span class="mi">1100</span> \
+       <span class="o">--</span><span class="n">tensor</span><span class="o">-</span><span class="n">parallel</span><span class="o">-</span><span class="n">size</span> <span class="mi">4</span>
 </pre></div>
 </div>
 </section>
 </section>
 <section id="id5">
-<h2>模型支持<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
-<table border="1" class="docutils">
-<thead>
-<tr>
-<th style="text-align: center;">系列</th>
-<th style="text-align: center;">模型</th>
-<th style="text-align: center;">备注</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: center;"><a href="https://www.modelscope.cn/organization/qwen?tab=model">Qwen</a></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr>
-<td style="text-align: center;"><a href="https://www.modelscope.cn/organization/qwen?tab=model">Qwen2</a></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-</tbody>
-</table></section>
-<section id="id6">
-<h2>参考<a class="headerlink" href="#id6" title="Link to this heading"></a></h2>
+<h2>参考<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
 <ul class="simple">
-<li><p>官方链接：https://github.com/vllm-project/vllm</p></li>
+<li><p>官方链接：<a class="reference external" href="https://github.com/vllm-project/vllm">https://github.com/vllm-project/vllm</a></p></li>
 </ul>
 </section>
 </section>
@@ -210,7 +172,7 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
         <a href="../index.html" class="btn btn-neutral float-left" title="模型推理" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
-        <a href="../ollama/ollama.html" class="btn btn-neutral float-right" title="ollama" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../../../software/index.html" class="btn btn-neutral float-right" title="实用软件" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
