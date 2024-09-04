@@ -6,9 +6,7 @@ vLLM是一个开源的LLM推理和服务引擎。
 
 ## 安装
 
-基于CPU
-
-基于GPU
+[基于GPU](./install_gpu.md)
 
 [基于DCU](./install_dcu.md)
 
