@@ -71,7 +71,7 @@ pip install -i https://pypi.tuna.tsinghua.edu.cn/simple transformers==4.33.1
 
 ## Pip
 
-未更新
+暂未更新
 
 ## 其他
 
