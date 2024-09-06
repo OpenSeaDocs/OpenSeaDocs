@@ -1,7 +1,7 @@
-操作系统
+Ubuntu
 =========
 
 .. toctree::
    :maxdepth: 1
 
-   install/index
+   setting
