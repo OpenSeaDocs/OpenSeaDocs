@@ -1,7 +1,8 @@
-人工智能
+LLM
 ========
 
 .. toctree::
    :maxdepth: 1
 
-   llm/index
+   inference/index
+   training/index
