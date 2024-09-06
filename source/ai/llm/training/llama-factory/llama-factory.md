@@ -22,7 +22,7 @@ git clone https://github.com/hiyouga/LLaMA-Factory.git
 
 下载模型至服务器/data/model文件夹下，此处以[Qwen2-7B-Instruct](https://www.modelscope.cn/models/qwen/Qwen2-7B-Instruct)为例。
 
-## 快速开始
+## 模型微调
 
 以Qwen2-7B-Instruct模型的Lora微调为例。
 
