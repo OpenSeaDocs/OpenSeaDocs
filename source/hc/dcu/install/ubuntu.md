@@ -299,6 +299,12 @@ export PATH=$PATH:/opt/mpi/bin
 source /opt/dtk-24.04.1/env.sh
 ```
 
+激活环境变量
+
+```
+source ~/.bashrc
+```
+
 ## 附件
 
 光合社区文档：https://cancon.hpccube.com:65024/1/main/latest/Document
