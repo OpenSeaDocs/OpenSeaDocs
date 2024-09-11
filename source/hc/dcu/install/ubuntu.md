@@ -278,6 +278,27 @@ hy-smi
 
 ![hy-smi](../../../imgs/hc_dcu_install_ubuntu_hy-smi.jpg)
 
+## Q&A
+
+- 使用root用户安装部署DTK开发环境，其他用户执行hy-smi无输出
+
+将该root用户加入video组
+
+```
+sudo usermod -aG video $USER
+```
+
+配置环境变量
+
+```
+# mpi
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/mpi/lib
+export PATH=$PATH:/opt/mpi/bin
+
+# dtk24.04.1
+source /opt/dtk-24.04.1/env.sh
+```
+
 ## 附件
 
 光合社区文档：https://cancon.hpccube.com:65024/1/main/latest/Document
