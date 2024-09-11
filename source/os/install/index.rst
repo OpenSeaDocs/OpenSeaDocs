@@ -1,7 +1,7 @@
-操作系统
+安装
 =========
 
 .. toctree::
    :maxdepth: 1
 
-   install/index
+   ubuntu/index

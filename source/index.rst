@@ -6,6 +6,7 @@ OpenSeaDocs
 
    about/index
    hc/index
+   os/index
    ai/index
    software/index
 
