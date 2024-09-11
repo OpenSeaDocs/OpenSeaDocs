@@ -8,5 +8,6 @@ OpenSeaDocs
    hc/index
    os/index
    ai/index
+   virtualization/index
    software/index
 
