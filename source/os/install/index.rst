@@ -1,7 +1,7 @@
-异构计算
+安装
 =========
 
 .. toctree::
    :maxdepth: 1
 
-   dcu/index
+   ubuntu/index

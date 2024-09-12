@@ -35,7 +35,7 @@ prompts = [
 ]
 sampling_params = SamplingParams(temperature=0.8, top_p=0.95)
 
-llm = LLM(model="/model/Qwen2-7B-Instruct")
+llm = LLM(model="/data/model/Qwen2-7B-Instruct")
 
 outputs = llm.generate(prompts, sampling_params)
 
@@ -60,7 +60,7 @@ cd vllm/benchmarks
 python benchmark_throughput.py \
        --backend vllm \
        --dtype float16 \
-       --model "/model/Qwen2-7B-Instruct" \
+       --model "/data/model/Qwen2-7B-Instruct" \
        --num-prompts 32 \
        --input-len 128 \
        --output-len 1024 \

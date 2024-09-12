@@ -1,7 +1,7 @@
-异构计算
+Ubuntu
 =========
 
 .. toctree::
    :maxdepth: 1
 
-   dcu/index
+   setting
