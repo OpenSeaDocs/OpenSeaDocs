@@ -25,10 +25,37 @@ sudo wget https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-py3
 sudo bash Miniconda3-py310_24.7.1-0-Linux-x86_64.sh
 ```
 
+- 配置环境变量
+
+打开用户环境变量
+
+```
+vim ~/.bashrc
+```
+
+并在末尾添加如下内容，此处已conda安装路径`/data/miniconda3`为例，如果不是安装在此路径下请自行修改
+
+```
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/data/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/data/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/data/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/data/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+```
+
 - 激活环境变量
 
 ```
-sudo source ~/.bashrc
+source ~/.bashrc
 ```
 
 - 验证
