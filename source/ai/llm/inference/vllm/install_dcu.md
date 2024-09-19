@@ -71,7 +71,29 @@ pip install -i https://pypi.tuna.tsinghua.edu.cn/simple transformers==4.33.1
 
 ## Pip
 
-暂未更新
+- 创建并激活conda环境
+
+```
+# 基于conda创建虚拟环境
+conda create -n vllm python=3.10 -y
+conda activate vllm
+```
+
+- 安装依赖包
+
+登录光合开发者社区中下载对应版本[triron包](https://cancon.hpccube.com:65024/4/main/triton/DAS1.1)、[vllm包](https://cancon.hpccube.com:65024/4/main/vllm/DAS1.1.1)和[torch包](https://cancon.hpccube.com:65024/4/main/pytorch/DAS1.1.1)，执行安装，
+
+```
+pip install -i https://pypi.tuna.tsinghua.edu.cn/simple *.whl
+```
+
+- 额外步骤
+
+ubuntu系统下若遇到缺少libavcodec.so.58报错，请安装ffmpeg依赖
+
+```
+sudo apt-get install -y ffmpeg
+```
 
 ## 其他
 
