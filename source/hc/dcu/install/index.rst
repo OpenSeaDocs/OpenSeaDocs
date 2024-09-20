@@ -1,7 +1,7 @@
-DCU
+环境部署
 =========
 
 .. toctree::
    :maxdepth: 1
 
-   install/index
+   ubuntu
