@@ -4,4 +4,5 @@
 .. toctree::
    :maxdepth: 1
 
+   vmware/vmware
    docker/index

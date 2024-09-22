@@ -1,8 +1,7 @@
-DCU
+环境部署
 =========
 
 .. toctree::
    :maxdepth: 1
 
-   hy-smi/hy-smi
-   install/index
+   ubuntu
